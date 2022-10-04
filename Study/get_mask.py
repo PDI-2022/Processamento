@@ -18,7 +18,6 @@ for iter_sample in range(len(photos)):
       bar = '/'
 
     target = directory_name + bar + photos[iter_sample]
-
     input_image = cv2.imread(target)
 
     _, _, input_image_red_component = cv2.split(input_image)
@@ -38,10 +37,10 @@ for iter_sample in range(len(photos)):
 
     used_threshold, thresholded_bgr_image = cv2.threshold(result_image, 130, 255, cv2.THRESH_BINARY)
 
-    mask_knn = thresholded_bgr_image
-    mask_knn_filtered = cv2.medianBlur(mask_knn, 5)
+    mask_kmeans = thresholded_bgr_image
+    mask_kmeans_filtered = cv2.medianBlur(mask_kmeans, 5)
 
-    result_image = cv2.bitwise_and(input_image, input_image, mask = mask_knn_filtered)
+    result_image = cv2.bitwise_and(input_image, input_image, mask = mask_kmeans_filtered)
 
     if not os.path.isdir('images'):
         os.mkdir('images')
